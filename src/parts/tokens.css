@@ -1,0 +1,88 @@
+/*
+  src/parts/tokens.css — 모든 부품이 같이 쓰는 토큰 (값의 출처: docs/design.md)
+  룩: 책상 위 모눈종이 (나무 책상 · 미색 모눈종이 · 이중선 테두리 · 연필 · 주황 동그라미 번호 · 형광펜 띠 · 색 알약 라벨)
+  기준: 1920×1080 영상 px. 레퍼런스 영상 ref8(1920×1080)에서 잰 값을 그대로 쓰고, 영상에 없는 것만 캡처 이미지(약 1250px 폭) 값 × 1.53.
+*/
+@font-face { font-family: "Hyeonok"; font-weight: 400; src: url("../assets/fonts/GangwonEduHyeonok.ttf") format("truetype"); }
+@font-face { font-family: "Pretendard"; font-weight: 400; src: url("../assets/fonts/Pretendard-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Pretendard"; font-weight: 600; src: url("../assets/fonts/Pretendard-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Pretendard"; font-weight: 700; src: url("../assets/fonts/Pretendard-Bold.woff2") format("woff2"); }
+
+:root {
+  /* 1. 색 */
+  --color-desk: #513c2d;          /* 나무 책상 */
+  --color-desk-dark: #453526;     /* 책상 결 · 어두운 쪽 */
+  --color-bg: #f4ece0;            /* 모눈종이 가운데 */
+  --color-paper-edge: #c8c0b3;    /* 종이 가장자리 그늘 (비네트) */
+  --color-grid-minor: #e7e2d8;    /* 모눈 가는 줄 */
+  --color-grid-major: #cdd3d3;    /* 모눈 굵은 줄 (5칸마다, 살짝 푸름) */
+  --color-frame: #a39b8f;         /* 종이 안쪽 이중선 테두리 · 라벨 상자 선 */
+  --color-construct: #b9c3c6;     /* 작도선 (컴퍼스 · 자로 그은 가는 선) */
+  --color-ink: #36332e;           /* 제목 · 본문 */
+  --color-ink-soft: #6d6963;      /* 부제 · 라벨 · 설명 (바탕 대비 4.65:1) */
+  --color-line: #3c332b;          /* 그림 외곽선 · 카드 테두리 · 흐름 화살표 */
+  --color-accent: #c4734f;        /* 강조 1: 동그라미 번호 · 설명 화살표(위에 손글씨 말) · 말풍선 · 용어 이름 */
+  --color-highlight: #e8cd8e;     /* 강조 2: 형광펜 띠 */
+  --concept-data: #54a29b;        /* 개념 색: 데이터 (청록) — 같은 개념은 모든 장면에서 같은 색 */
+  --concept-info: #d9815b;        /* 개념 색: 정보 (주황) */
+  --concept-ai: #907db8;          /* 개념 색: 인공지능 (보라) */
+  --color-check: #5d8f5a;         /* 맞음 표시(체크 동그라미) */
+  --color-on-pill: #fffaf2;       /* 알약 라벨 위 글자 */
+  --pill-red: #d86249;  --pill-orange: #de7d4d;  --pill-yellow: #cf972f;
+  --pill-blue: #4279ab; --pill-purple: #8779b4;  --pill-green: #5d8f5a;
+  --color-card: #faf6ee;          /* 테두리 카드 바탕 */
+  --color-card-photo: #dee7ed;    /* 그림 속 사진 · 화면 칸 바탕 (하늘색) */
+  --color-pencil: #e6ab35;        /* 연필 몸통 */
+  --color-pencil-dark: #c78d24;   /* 연필 그늘 면 */
+  --color-eraser-pink: #ecad9d;   /* 지우개 · 연필 끝 */
+  --color-eraser-blue: #2a69a5;   /* 지우개 띠 */
+  --color-ruler: rgba(170, 205, 225, 0.30); /* 삼각자: 반투명 하늘색 아크릴 (책상 위에서는 #50524a 처럼 보임) */
+  --color-ruler-edge: rgba(220, 235, 245, 0.55); /* 삼각자 가장자리 · 눈금 */
+  --color-shadow: rgba(40, 30, 20, 0.45); /* 종이 · 소품 그림자 (책상 위 #302719 쪽으로) */
+
+  /* 2. 글자 */
+  --font-sans: "Pretendard", sans-serif;  /* 제목 · 본문 · 라벨 */
+  --font-hand: "Hyeonok", "Pretendard", sans-serif;  /* 손글씨: 그림 이름표 · 알약 라벨 · 화살표 위 말 (강원교육현옥샘) */
+  --text-display: 320px;  /* 큰 숫자 (단원 번호 · 연도) */
+  --text-title: 72px;     /* 장면 제목 */
+  --text-lead: 52px;      /* 형광펜 강조 문장 · 정의 문장 */
+  --text-body: 44px;      /* 부제 · 읽는 글 */
+  --text-hand: 56px;      /* 손글씨 이름표. 이 글꼴은 글자가 작게 나와서 Pretendard 36px 과 글자 높이가 같도록 약 1.6배 */
+  --text-label: 32px;     /* 과목 · 단원 라벨 · 쪽수 · 출처 (최소 크기) */
+
+  /* 4. 크기 · 간격 */
+  --grid-minor: 30px;     /* 모눈 한 칸 */
+  --grid-major: 150px;    /* 굵은 줄 간격 (5칸) */
+  --sheet-w: 1740px;      /* 화면 안 종이 폭 (ref8 1편 화면 기준) */
+  --sheet-h: 968px;       /* 화면 안 종이 높이 */
+  --frame-inset: 26px;    /* 종이 끝 → 바깥 테두리선 */
+  --frame-gap: 8px;       /* 이중선 사이 */
+  --line-w: 4px;          /* 그림 외곽선 굵기 */
+  --radius-card: 22px;    /* 테두리 카드 모서리 (ref8 1:20) */
+  --space-16: 16px; --space-24: 24px; --space-32: 32px; --space-48: 48px; --space-64: 64px; --space-96: 96px;
+
+  /* 5. 질감 세기 */
+  --vignette: 0.55;       /* 종이 가장자리 어둡기 */
+  --paper-grain: 0.10;    /* 종이 결 */
+  --desk-grain: 0.35;     /* 나무 결 */
+}
+
+html, body { margin: 0; background: transparent; }
+body { font-family: var(--font-sans); color: var(--color-ink); -webkit-font-smoothing: antialiased; word-break: keep-all; }
+p, h1, h2, h3 { margin: 0; }
+[hidden] { display: none !important; }   /* svg 에 붙인 hidden 도 숨기기 (지우개 · 체크 표시 등) */
+/* 글줄 등장용 구조: .mask가 자르고 .line만 움직인다 */
+.mask { display: block; overflow: hidden; }
+.line { display: block; }
+
+/* 견본 찍기 전용: <body data-preview> 일 때만 모눈종이 바탕을 깐다. 장면에서는 쓰지 않는다 (바탕 부품이 맨 아래에 깔림) */
+body[data-preview] {
+  width: 1920px; height: 1080px; overflow: hidden; position: relative;
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(var(--color-grid-major) 2px, transparent 2px),
+    linear-gradient(90deg, var(--color-grid-major) 2px, transparent 2px),
+    linear-gradient(var(--color-grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-minor) 1px, transparent 1px);
+  background-size: var(--grid-major) var(--grid-major), var(--grid-major) var(--grid-major), var(--grid-minor) var(--grid-minor), var(--grid-minor) var(--grid-minor);
+}

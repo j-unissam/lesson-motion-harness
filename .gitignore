@@ -21,3 +21,8 @@ references/**/*.jpeg
 references/**/*.png
 references/**/*.gif
 references/**/*.webp
+
+# 내려받은 HyperFrames 스킬은 skills-lock.json 으로 다시 설치한다 (.claude/skills 의 링크도 이 컴퓨터 경로라 올리지 않음)
+.agents/
+.claude/skills/*
+!.claude/skills/make-video/
