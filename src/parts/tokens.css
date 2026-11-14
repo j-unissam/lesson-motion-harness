@@ -26,6 +26,9 @@
   --concept-data: #54a29b;        /* 개념 색: 데이터 (청록) — 같은 개념은 모든 장면에서 같은 색 */
   --concept-info: #d9815b;        /* 개념 색: 정보 (주황) */
   --concept-ai: #907db8;          /* 개념 색: 인공지능 (보라) */
+  --concept-sense: var(--concept-data);    /* 개념 색: 감지 장치 (청록) — 선생님 결정 2026-11-14 */
+  --concept-control: var(--concept-info);  /* 개념 색: 제어 장치 (주황) */
+  --concept-drive: var(--concept-ai);      /* 개념 색: 구동 장치 (보라) */
   --color-check: #5d8f5a;         /* 맞음 표시(체크 동그라미) */
   --color-on-pill: #fffaf2;       /* 알약 라벨 위 글자 */
   --pill-red: #d86249;  --pill-orange: #de7d4d;  --pill-yellow: #cf972f;
