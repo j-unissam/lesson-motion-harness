@@ -15,7 +15,7 @@ colors:
   accent: "#c4734f"
   highlight: "#e8cd8e"
   check: "#5d8f5a"
-  concept: { data: "#54a29b", info: "#d9815b", ai: "#907db8" }
+  concept: { data: "#54a29b", info: "#d9815b", ai: "#907db8", sense: "#54a29b", control: "#d9815b", drive: "#907db8" }
   pills: { red: "#d86249", orange: "#de7d4d", yellow: "#cf972f", blue: "#4279ab", purple: "#8779b4", green: "#5d8f5a" }
 typography:
   sans: { family: "Pretendard", files: ["assets/fonts/Pretendard-Regular.woff2", "assets/fonts/Pretendard-SemiBold.woff2", "assets/fonts/Pretendard-Bold.woff2"], weights: [400, 600, 700] }
@@ -59,6 +59,9 @@ components: [desk-paper-ground, number-construct, title-highlight, data-card, de
 | `concept-data` | `#54a29b` | 개념 색: **데이터** (청록) | ref8 2:08 왼쪽 동그라미 (20~23%, 42~50%) |
 | `concept-info` | `#d9815b` | 개념 색: **정보** (주황) | ref8 2:08 가운데 동그라미 |
 | `concept-ai` | `#907db8` | 개념 색: **인공지능** (보라) | ref8 2:08 오른쪽 동그라미 · ref2 AI 칩 `#9586b9` |
+| `concept-sense` | `#54a29b` | 개념 색: **감지 장치** (청록, `concept-data` 와 같은 값) | 선생님 결정 2026-11-14, 7-1-robot-basics · 값은 ref8 2:08 |
+| `concept-control` | `#d9815b` | 개념 색: **제어 장치** (주황, `concept-info` 와 같은 값) | 같음 |
+| `concept-drive` | `#907db8` | 개념 색: **구동 장치** (보라, `concept-ai` 와 같은 값) | 같음 |
 | `color-check` | `#5d8f5a` | 맞음 표시 · 초록 알약 | ref2 체크 동그라미 `#61925e` · ref7 초록 알약 |
 | `pill-red` | `#d86249` | 알약 라벨 | ref7 빨강 알약 (19~27%, 51~54%) |
 | `pill-orange` | `#de7d4d` | 알약 라벨 | ref7 주황 알약 |
