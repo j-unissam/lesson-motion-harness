@@ -1,0 +1,82 @@
+<!doctype html>
+<!--
+  src/parts/desk-paper-ground.html — 바탕: 나무 책상 위 모눈종이 (역할 칸: 바탕)
+  크기: 2304×1296 (영상 1920×1080의 1.2배). 화면에는 가운데 1920×1080만 보인다 → 카메라가 밀거나 당겨도 책상 가장자리가 안 보인다.
+        견본에서는 #ground 를 (-192, -108) 에 두어 가운데를 보여 준다.
+  종이: 1740×968, 바깥 2304×1296 기준 (284, 164) 자리. 화면 기준으로는 (92, 56). (ref8 0:05 · 2:08)
+  바꾸는 부분: 없음. 지우개(#ground-eraser)는 기본으로 숨겨 둔다(hidden) — 장면이 바뀔 때만 보이게 해서 쓸고 지나간다 (docs/motion.md 3장).
+              연필 · 삼각자를 빼고 싶으면 #ground-pencil · #ground-ruler 에 hidden 을 붙인다.
+  건드리지 않는 것: 모눈 간격(30 · 150) · 이중선 테두리 · 종이 그늘(비네트) · 책상 색. 값은 tokens.css 에서만 바꾼다.
+  따로 움직일 수 있는 조각: #ground-desk(책상) · #ground-sheet(종이, 안에 모눈 · 테두리 포함) · #ground-pencil · #ground-ruler · #ground-eraser
+  레퍼런스: 책상 · 종이 · 테두리 · 소품 배치는 ref1 · ref6 · ref7, 비스듬한 따뜻한 빛과 종이 그림자는 ref3 · ref5 의 느낌만 (사진은 쓰지 않음).
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>desk-paper-ground</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { width: 1920px; height: 1080px; overflow: hidden; position: relative; }
+  #ground { position: absolute; left: -192px; top: -108px; width: 2304px; height: 1296px; overflow: hidden; }
+
+  /* 책상: 가로 나뭇결 (직접 만든 줄무늬 + 잡음) */
+  #ground-desk { position: absolute; inset: 0; background-color: var(--color-desk);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 22px, rgba(30,20,12,0.18) 22px 24px, rgba(0,0,0,0) 24px 61px, rgba(255,235,210,0.05) 61px 63px),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 140px, rgba(30,20,12,0.22) 140px 143px);
+  }
+  #ground-desk::after { content: ""; position: absolute; inset: 0; opacity: var(--desk-grain); mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.004 0.35' numOctaves='3' seed='7'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.17  0 0 0 0 0.10  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* 종이 */
+  #ground-sheet { position: absolute; left: 284px; top: 164px; width: var(--sheet-w); height: var(--sheet-h);
+    background-color: var(--color-bg);
+    box-shadow: 0 18px 40px var(--color-shadow), 0 3px 6px rgba(40,30,20,0.35); }
+  #ground-grid { position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--color-grid-major) 2px, transparent 2px),
+      linear-gradient(90deg, var(--color-grid-major) 2px, transparent 2px),
+      linear-gradient(var(--color-grid-minor) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid-minor) 1px, transparent 1px);
+    background-size: var(--grid-major) var(--grid-major), var(--grid-major) var(--grid-major), var(--grid-minor) var(--grid-minor), var(--grid-minor) var(--grid-minor);
+    background-position: 20px 20px; }
+  #ground-grain { position: absolute; inset: 0; opacity: var(--paper-grain); mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.4  0 0 0 0 0.35  0 0 0 0 0.3  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>"); }
+  /* 가장자리 그늘 + 왼쪽 위에서 오는 따뜻한 빛 */
+  #ground-light { position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 75% 70% at 45% 42%, rgba(255,250,240,0.25) 0%, rgba(255,250,240,0) 55%),
+      radial-gradient(ellipse 90% 85% at 50% 50%, rgba(0,0,0,0) 55%, rgba(120,108,92,calc(var(--vignette) * 0.75)) 100%); }
+  /* 이중선 테두리 */
+  #ground-frame { position: absolute; inset: var(--frame-inset); border: 2px solid var(--color-frame); }
+  #ground-frame::after { content: ""; position: absolute; inset: var(--frame-gap); border: 1.5px solid var(--color-frame); }
+
+  /* 소품 */
+  .prop { position: absolute; filter: drop-shadow(10px 14px 10px var(--color-shadow)); }
+  #ground-ruler { left: 1880px; top: 92px; width: 520px; height: 140px; transform: rotate(-12deg); }
+  #ground-pencil { left: 1880px; top: 1080px; width: 520px; height: 40px; transform: rotate(-38deg); transform-origin: 0 50%; }
+  #ground-eraser { left: 1900px; top: 520px; width: 150px; height: 70px; transform: rotate(-14deg); }
+</style>
+</head>
+<body data-preview>
+  <div id="ground">
+    <div id="ground-desk"></div>
+    <div id="ground-sheet">
+      <div id="ground-grid"></div>
+      <div id="ground-grain"></div>
+      <div id="ground-light"></div>
+      <div id="ground-frame"></div>
+    </div>
+    <!-- 삼각자: 반투명 하늘색 아크릴 · 눈금. 종이 오른쪽 위 모서리에 걸쳐 일부만 보인다 (ref8) -->
+    <svg id="ground-ruler" class="prop" viewBox="0 0 520 140"><path d="M0 140 L520 0 L520 140 Z" fill="var(--color-ruler)" stroke="var(--color-ruler-edge)" stroke-width="3"/><path d="M150 128 L460 45 L460 128 Z" fill="none" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="20" y1="134.6" x2="24.2" y2="150.0" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="40" y1="129.2" x2="42.3" y2="137.9" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="60" y1="123.8" x2="62.3" y2="132.5" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="80" y1="118.5" x2="82.3" y2="127.1" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="100" y1="113.1" x2="102.3" y2="121.7" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="120" y1="107.7" x2="124.2" y2="123.1" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="140" y1="102.3" x2="142.3" y2="110.9" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="160" y1="96.9" x2="162.3" y2="105.6" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="180" y1="91.5" x2="182.3" y2="100.2" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="200" y1="86.2" x2="202.3" y2="94.8" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="220" y1="80.8" x2="224.2" y2="96.1" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="240" y1="75.4" x2="242.3" y2="84.0" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="260" y1="70.0" x2="262.3" y2="78.6" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="280" y1="64.6" x2="282.3" y2="73.3" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="300" y1="59.2" x2="302.3" y2="67.9" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="320" y1="53.8" x2="324.2" y2="69.2" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="340" y1="48.5" x2="342.3" y2="57.1" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="360" y1="43.1" x2="362.3" y2="51.7" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="380" y1="37.7" x2="382.3" y2="46.3" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="400" y1="32.3" x2="402.3" y2="40.9" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="420" y1="26.9" x2="424.2" y2="42.3" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="440" y1="21.5" x2="442.3" y2="30.2" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="460" y1="16.2" x2="462.3" y2="24.8" stroke="var(--color-ruler-edge)" stroke-width="2"/><line x1="480" y1="10.8" x2="482.3" y2="19.4" stroke="var(--color-ruler-edge)" stroke-width="2"/></svg>
+    <!-- 연필: 오른쪽 아래에서 종이 쪽으로 -->
+    <svg id="ground-pencil" class="prop" viewBox="0 0 520 40">
+      <polygon points="0,20 48,6 48,34" fill="#e9c9a0"/><polygon points="0,20 16,15.5 16,24.5" fill="var(--color-line)"/>
+      <rect x="48" y="6" width="400" height="28" fill="var(--color-pencil)"/><rect x="48" y="22" width="400" height="12" fill="var(--color-pencil-dark)"/>
+      <rect x="448" y="5" width="26" height="30" fill="#b9b2a6"/><rect x="474" y="6" width="44" height="28" rx="6" fill="var(--color-eraser-pink)"/>
+    </svg>
+    <!-- 지우개 -->
+    <svg id="ground-eraser" class="prop" viewBox="0 0 150 70" hidden><rect x="0" y="0" width="150" height="70" rx="8" fill="#f1ede6"/><rect x="0" y="0" width="58" height="70" rx="8" fill="var(--color-eraser-pink)"/><rect x="66" y="6" width="84" height="40" fill="var(--color-eraser-blue)"/></svg>
+  </div>
+</body>
+</html>

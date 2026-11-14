@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  src/parts/subject-label.html — 과목 · 단원 라벨 (역할 칸: 과목 · 단원)
+  크기: 높이 52, 폭은 글자에 맞춰. 자리: 화면 왼쪽 아래 (left 140, top 938) — 아래 끝이 종이 안쪽 테두리선(y 990)에 닿음. 영상 내내 같은 자리.
+        (ref8 0:05 · 0:20 · 1:39 라벨 상자 x 135~150, 아래 끝 y 988~996. 레퍼런스 글자는 약 20px 이라 상자가 33px 이지만, 32px 최소 글자를 넣느라 높이 52)
+  모양: 회색 가는 선 상자 두 칸 — 왼쪽 "과목 · 단원", 오른쪽 "장면 번호 / 전체" (레퍼런스 ref1 · ref6 · ref7 의 왼쪽 아래 라벨 상자)
+  바꾸는 부분: #sl-subject(예: "실과 · 6. 데이터와 인공지능") · #sl-now · #sl-total(두 자리 숫자)
+  건드리지 않는 것: 자리 · 글자 크기(32, 최소 크기) · 선 색. 장면이 바뀌어도 움직이지 않는다 (#sl-now 숫자만 바뀜).
+  따로 움직일 수 있는 조각: #sl-now(숫자만 바꿔 넘기기)
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>subject-label</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  #sl { position: absolute; left: 140px; top: 938px; display: flex; height: 52px; box-sizing: border-box; border: 2px solid var(--color-frame); background: rgba(244,236,224,0.85);
+    font-size: var(--text-label); color: var(--color-ink-soft); }
+  #sl > div { display: flex; align-items: center; padding: 0 22px; }
+  #sl-count { border-left: 2px solid var(--color-frame); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+  #sl-count .slash { margin: 0 10px; }
+</style>
+</head>
+<body data-preview>
+  <div id="sl">
+    <div id="sl-subject">실과 · 6. 데이터와 인공지능</div>
+    <div id="sl-count"><span id="sl-now">03</span><span class="slash">/</span><span id="sl-total">09</span></div>
+  </div>
+</body>
+</html>
