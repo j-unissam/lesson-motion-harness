@@ -26,3 +26,6 @@ references/**/*.webp
 .agents/
 .claude/skills/*
 !.claude/skills/make-video/
+
+# 강원교육현옥샘 글꼴은 라이선스 확인 전까지 저장소에 올리지 않는다 (로컬에만 둠)
+src/assets/fonts/GangwonEduHyeonok.ttf
