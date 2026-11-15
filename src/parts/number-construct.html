@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+  src/parts/number-construct.html — 큰 숫자 + 작도선 (역할 칸: 연도 · 시대)
+  크기: 1920×1080 전면, 바탕 투명 (desk-paper-ground 위에 얹는다).
+  모양: 화면 가운데 컴퍼스 원(반지름 255) + 가로 · 세로 작도선이 먼저 그려지고, 그 한가운데 큰 숫자, 아래 짧은 주황 줄 + 부제 한 줄.
+        (레퍼런스 ref8 0:01~0:05 시작 화면의 원 · 십자선 구도, ref6 연필이 작도선을 긋는 장면, ref5 컴퍼스 원 느낌)
+  바꾸는 부분: #nc-label(위쪽 작은 글줄: 과목 · 단원, 비워도 됨, 32px) · #nc-number 안의 .digit (숫자 1~4자리, 한 자리에 span 하나) · #nc-title(부제 한 줄, 13자 안쪽 — 선생님 결정 2026-11-14, 7-1-robot-basics. 13자는 스냅보드에서 눈으로 확인)
+  건드리지 않는 것: 원 · 십자선의 중심(960, 507)과 반지름 · 작도선 굵기와 색 · 숫자 아래 짧은 줄
+  따로 움직일 수 있는 조각: #nc-arc(원, stroke-dashoffset 으로 그려지게) · #nc-cross-h · #nc-cross-v(작도선) · #nc-label(써지게) · .digit(한 자리씩) · #nc-rule(짧은 줄) · #nc-title 의 .line
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>number-construct</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  #nc { position: absolute; inset: 0; }
+  #nc-guides { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  #nc-guides * { fill: none; stroke: var(--color-construct); stroke-width: 2.5; stroke-linecap: round; }
+  #nc-label { position: absolute; left: 0; right: 0; top: 292px; text-align: center; font-size: var(--text-label); color: var(--color-ink-soft); }
+  #nc-number { position: absolute; left: 0; right: 0; top: 337px; text-align: center; font-size: var(--text-display); font-weight: 700;
+    line-height: 1; letter-spacing: -0.01em; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+  .digit { display: inline-block; }
+  #nc-rule { position: absolute; left: 50%; top: 800px; width: 120px; height: 8px; margin-left: -60px; background: var(--color-accent); border-radius: 4px; }
+  #nc-title { position: absolute; left: 0; right: 0; top: 836px; text-align: center; font-size: var(--text-title); font-weight: 700; color: var(--color-ink); }
+</style>
+</head>
+<body data-preview>
+  <div id="nc">
+    <svg id="nc-guides" viewBox="0 0 1920 1080">
+      <line id="nc-cross-h" x1="172" y1="507" x2="1760" y2="507"/>
+      <line id="nc-cross-v" x1="960" y1="230" x2="960" y2="784"/>
+      <circle id="nc-arc" cx="960" cy="507" r="255" pathLength="1"/>
+    </svg>
+    <p id="nc-label"><span class="mask"><span class="line">실과 · 6. 데이터와 인공지능</span></span></p>
+    <div id="nc-number"><span class="digit">6</span></div>
+    <div id="nc-rule"></div>
+    <p id="nc-title"><span class="mask"><span class="line">데이터와 인공지능</span></span></p>
+  </div>
+</body>
+</html>

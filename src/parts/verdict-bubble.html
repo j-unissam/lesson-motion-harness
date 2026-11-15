@@ -1,0 +1,53 @@
+<!doctype html>
+<!--
+  src/parts/verdict-bubble.html — 짧은 판정 · 강조 말 (역할 칸: 판정 · 강조, 2~6글자)
+  모양 두 가지 (#vb 의 class 로 고름):
+   ① class="bubble" (기본) — 말풍선: 미색 바탕 · 주황 외곽선 · 양 끝이 둥근 긴 모양(높이 76) + 아래 오른쪽으로 가는 가는 꼬리 · 주황 굵은 글자.
+      폭은 글자에 맞춤. 연필로 외곽선 → 꼬리를 그리고 글자를 써 넣는다. (ref8 0:33 그래프 위 말풍선: x 1150~1585 · y 298~370, 꼬리 끝 1600,410)
+   ② class="stamp" — 도장: 둥근 사각 두 줄 테두리 + 굵은 글자, 한 가지 색, −4° 기울어짐. 쾅 찍힌다. (ref8 81.5 퀴즈 답 도장)
+      색: style="--stamp: var(--pill-green)" 처럼 분류 색 (아날로그 = pill-green, 디지털 = pill-blue — docs/design.md 1장)
+  바꾸는 부분: #vb-text(2~6글자) · 자리: #vb 의 left/top · ① 꼬리를 아래 왼쪽으로: class 에 tail-left · ② --stamp 색
+  건드리지 않는 것: 외곽선 굵기(4) · 말풍선 높이 76과 둥근 끝 · 글자 크기(44, 굵게) · 도장 기울기
+  따로 움직일 수 있는 조각: ① #vb-outline(외곽선, stroke-dashoffset 1→0, pathLength=1) · #vb-tail(꼬리) · #vb-fill(바탕) · #vb-text(써지게)
+                         ② #vb-box(통째로 크기 · 투명도)
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>verdict-bubble</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  .vb { --stamp: var(--pill-green); position: absolute; }
+  .vb .vb-text { position: relative; font-size: var(--text-body); font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; line-height: 1; }
+  /* ① bubble */
+  .vb.bubble .vb-box { position: relative; display: inline-flex; align-items: center; height: 76px; padding: 0 40px; }
+  .vb.bubble .vb-shape { position: absolute; left: 0; top: 0; width: 100%; height: 76px; overflow: visible; }
+  .vb.bubble .vb-fill { fill: var(--color-bg); }
+  .vb.bubble .vb-outline, .vb.bubble .vb-tail { fill: none; stroke: var(--color-accent); stroke-width: var(--line-w); stroke-linejoin: round; stroke-linecap: round; }
+  .vb.bubble .vb-tailart { position: absolute; right: 50px; top: 72px; width: 56px; height: 44px; overflow: visible; }
+  .vb.bubble.tail-left .vb-tailart { right: auto; left: 50px; transform: scaleX(-1); }
+  .vb.bubble .vb-tailart .vb-tailfill { fill: var(--color-bg); }
+  .vb.bubble .vb-text { color: var(--color-accent); }
+  /* ② stamp */
+  .vb.stamp .vb-box { position: relative; display: inline-block; padding: 16px 32px; transform: rotate(-4deg);
+    border: var(--line-w) solid var(--stamp); border-radius: 14px; background: rgba(244,236,224,0.6); }
+  .vb.stamp .vb-box::after { content: ""; position: absolute; inset: 6px; border: 2px solid var(--stamp); border-radius: 9px; }
+  .vb.stamp .vb-shape, .vb.stamp .vb-tailart { display: none; }
+  .vb.stamp .vb-text { color: var(--stamp); }
+</style>
+</head>
+<body data-preview>
+  <!-- 견본 ① 말풍선 -->
+  <div id="vb" class="vb bubble" style="left: 1180px; top: 300px;">
+    <div class="vb-box">
+      <svg class="vb-shape"><rect class="vb-fill" x="2" y="2" width="calc(100% - 4px)" height="72" rx="36"/><rect id="vb-outline" class="vb-outline" x="2" y="2" width="calc(100% - 4px)" height="72" rx="36" pathLength="1"/></svg>
+      <svg class="vb-tailart" viewBox="0 0 56 44"><path class="vb-tailfill" d="M2 0 L54 42 L36 0 Z"/><path id="vb-tail" class="vb-tail" d="M2 2 L54 42 L36 2" pathLength="1"/></svg>
+      <span id="vb-text" class="vb-text">잘 맞았다</span>
+    </div>
+  </div>
+  <!-- 견본 ② 도장 (견본 찍기용으로 함께 둠. 장면에서는 하나만 쓴다) -->
+  <div class="vb stamp" style="left: 1180px; top: 560px; --stamp: var(--pill-green);">
+    <div class="vb-box"><span class="vb-text">아날로그</span></div>
+  </div>
+</body>
+</html>

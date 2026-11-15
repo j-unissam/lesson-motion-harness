@@ -11,7 +11,7 @@
 |---|---|
 | `docs/textbook/` | 교과서 md 형식(`_format.md`) · 목차(`index.md`) · 실습용 예시 원고(`sample-unit.md`) |
 | `templates/look/` | 룩 빈 양식: `design.md`(값 없음) · `roles.md`(부품 역할 칸 7개) |
-| `src/assets/fonts/` | 무료 한글 글꼴 (Pretendard · Noto Serif KR, 라이선스 포함) |
+| `src/assets/fonts/` | 무료 한글 글꼴: Pretendard · Noto Serif KR (OFL, 라이선스 포함) · 강원교육현옥샘 (무료 사용 · 판매 금지, `GangwonEduHyeonok-LICENSE.md`) |
 | `src/assets/photos/` | 사진 출처 표 (`SOURCES.md`) |
 | `references/` | 레퍼런스 영상 · 이미지를 넣는 곳 (원본 파일은 저장소에 안 올라감) |
 

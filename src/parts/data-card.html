@@ -1,0 +1,69 @@
+<!doctype html>
+<!--
+  src/parts/data-card.html — 자료 + 이름 (역할 칸: 자료 + 이름)
+  모양 두 가지 (#dc 의 class 로 고름):
+   ① class="card" (기본) — 테두리 카드: 둥근 모서리 · 짙은 외곽선 카드 안에 왼쪽 위 주황 번호 · 가운데 그림 · 아래 손글씨 이름 · 출처
+      크기 344×454. 가로 4장 한 줄, 장과 장 사이 52 (첫 장 왼쪽 194). 위 끝 y 294. (ref8 1:20 퀴즈 카드: x 197~540 · 594~936 · 990~1333 · 1387~1730, y 294~748)
+   ② class="plain" — 그림 + 알약: 테두리 없이 그림(160×160) 아래 색 알약 이름표, 그 아래 설명 한 줄(한 줄 배치일 때만)
+      칸 하나 폭 420 · 높이 약 252(그림 160 + 틈 16 + 알약 76). 가로 3칸 × 2줄, 칸 가운데 x 435 · 955 · 1470 (간격 약 518), 그림 위 끝 y 330 · 625 (줄 간격 295). (ref8 0:20 그림 높이 155 ~ 170)
+  바꾸는 부분: #dc-media 안: 직접 그린 <svg> 그림 한 개, 또는 <img src="assets/photos/…"> 한 장 (SOURCES.md 에 있는 것. 교과서 그림 그대로 금지)
+              ① card: #dc-num(번호, 비워도 됨) · #dc-name(손글씨 이름, 10자 안쪽) · #dc-source("교과서 ○쪽")
+              ② plain: #dc-pill(알약 이름, 10자 안쪽) · 알약 색 style="--pill: var(--pill-blue)" (red · orange · yellow · blue · purple · green, 개념이면 --concept-*) · #dc-desc(설명 한 줄, 16자 안쪽)
+              맞음 표시가 필요하면 #dc-check 의 hidden 을 지운다 (카드 오른쪽 위, ref8 1:39)
+              출처: ① 은 카드마다 #dc-source. ② 는 #dc-desc · #dc-source 를 비우고, 장면 출처를 title-highlight 의 #th-source 에 한 번 단다 (두 줄 배치에 자리가 없음)
+  건드리지 않는 것: 카드 크기 · 외곽선 굵기(4) · 모서리 · 그림 칸 크기 · 이름 글꼴(손글씨 56) · 번호 색(accent)
+  따로 움직일 수 있는 조각: #dc-frame(카드 테두리, stroke 로 그려지게) · #dc-num · #dc-media(그림) · #dc-name · #dc-pill · #dc-desc · #dc-source · #dc-check
+  그림 안에 글자를 넣을 때도 32px 이상 (docs/video.md 1장).
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>data-card</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  #dc { --pill: var(--pill-red); position: absolute; display: flex; flex-direction: column; align-items: center; }
+  /* ① card */
+  #dc.card { left: 788px; top: 294px; width: 344px; height: 454px; }
+  #dc.card #dc-frame { position: absolute; inset: 0; width: 344px; height: 454px; overflow: visible; }
+  #dc.card #dc-frame rect { fill: var(--color-card); stroke: var(--color-line); stroke-width: var(--line-w); rx: var(--radius-card); }
+  #dc.card #dc-num { position: absolute; left: 30px; top: 22px; font-size: var(--text-label); font-weight: 700; color: var(--color-accent); }
+  #dc.card #dc-media { position: relative; margin-top: 66px; width: 250px; height: 250px; }
+  #dc.card #dc-name { position: relative; margin-top: 26px; font-family: var(--font-hand); font-size: var(--text-hand); line-height: 1; color: var(--color-ink); white-space: nowrap; }
+  #dc.card #dc-source { position: relative; margin-top: 12px; }
+  #dc.card #dc-pill, #dc.card #dc-desc { display: none; }
+  /* ② plain */
+  #dc.plain { left: 745px; top: 330px; width: 420px; }
+  #dc.plain #dc-frame, #dc.plain #dc-num, #dc.plain #dc-name { display: none; }
+  #dc.plain #dc-media { width: 160px; height: 160px; }
+  /* 공통 */
+  #dc-media { display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  #dc-media img { width: 100%; height: 100%; object-fit: cover; border: var(--line-w) solid var(--color-line); box-sizing: border-box; }
+  #dc-media svg { width: 100%; height: 100%; }
+  #dc-pill { margin-top: 16px; padding: 6px 30px 8px; border-radius: 999px; background: var(--pill); color: var(--color-on-pill);
+    font-family: var(--font-hand); font-size: var(--text-hand); line-height: 1.1; white-space: nowrap; box-shadow: 0 3px 0 rgba(60,45,30,0.18); }
+  #dc-desc { margin-top: 14px; font-size: var(--text-body); font-weight: 600; color: var(--color-ink); white-space: nowrap; }
+  #dc-source { font-size: var(--text-label); color: var(--color-ink-soft); white-space: nowrap; }
+  #dc-check { position: absolute; right: -24px; top: -24px; width: 72px; height: 72px; }
+</style>
+</head>
+<body data-preview>
+  <div id="dc" class="card" style="--pill: var(--pill-blue)">
+    <svg id="dc-frame" viewBox="0 0 344 454"><rect x="2" y="2" width="340" height="450" pathLength="1"/></svg>
+    <span id="dc-num">1</span>
+    <div id="dc-media">
+      <!-- 견본 그림: 직접 그린 체온계 (글자 없음) -->
+      <svg viewBox="0 0 200 240">
+        <g fill="none" stroke="var(--color-line)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 70 Q40 40 75 40 L150 40 Q170 40 170 62 L170 98 Q170 112 152 112 L118 112 L104 196 Q100 212 84 210 L72 208 Q58 204 62 188 L72 112 Q40 108 40 70 Z" fill="#c9e1ef"/>
+          <rect x="96" y="54" width="54" height="34" rx="6" fill="#b6d36b"/>
+        </g>
+      </svg>
+    </div>
+    <p id="dc-name">체온계</p>
+    <div id="dc-pill">체온계</div>
+    <p id="dc-desc">숫자 데이터</p>
+    <p id="dc-source">교과서 131쪽</p>
+    <svg id="dc-check" viewBox="0 0 72 72" hidden><circle cx="36" cy="36" r="34" fill="var(--color-check)"/><path d="M20 37 L31 48 L53 25" fill="none" stroke="#fffaf2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</body>
+</html>

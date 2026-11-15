@@ -1,0 +1,64 @@
+<!doctype html>
+<!--
+  src/parts/concept-flow.html — 개념 흐름 (마지막 정리 화면 전용, docs/video.md 4장)
+  크기: 1920×1080 전면, 바탕 투명. 화면 가운데(동그라미 가운데 높이 y 495)에 동그라미 2~4개를 가로 한 줄로, 사이에 화살표.
+        제목과 아래 질문 한 줄은 이 부품에 없다 → title-highlight 의 #th-title · #th-lead 를 같이 쓴다 (형광펜은 #th-lead 한 군데).
+  모양: 개념 색으로 칠한 큰 동그라미(지름 255, 짙은 외곽선) + 안에 흰 굵은 낱말 / 손으로 그은 화살표 / 동그라미 아래 손글씨 한 줄 설명
+        (레퍼런스 ref8 2:08 정리 장면의 구도 · 크기만. 글자 · 그림은 새로 만듦)
+  바꾸는 부분: .cf-node 의 개수(2~4) · 각 .cf-node 의 style="--c: var(--concept-…)" (데이터 = --concept-data, 정보 = --concept-info, 인공지능 = --concept-ai.
+              새 개념은 design.md 개념 색에 먼저 추가) · .cf-word(동그라미 안 낱말, 5자 안쪽) · .cf-note(아래 설명, 10자 안쪽, 교과서 표현)
+              동그라미가 4개면 #cf 에 class="four" 를 붙인다 (간격이 좁아짐)
+  건드리지 않는 것: 동그라미 지름 · 외곽선 굵기 · 가운데 높이 · 화살표 모양 · 아래 설명 글꼴(손글씨 56px)
+  따로 움직일 수 있는 조각: .cf-ring(동그라미 외곽선, stroke-dashoffset 1 → 0 으로 그려지게, pathLength=1) · .cf-fill(면 색, 투명도) · .cf-word ·
+                         .cf-arrow 의 .cf-shaft(화살대) · .cf-head(화살촉) · .cf-note(한 줄 설명)
+  움직임 순서 (docs/motion.md 3장 "concept-flow"): 동그라미 하나씩 외곽선 → 면 색 → 낱말 → 설명 → 화살표 → 다음 동그라미
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>concept-flow</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  #cf { --d: 255px; --arrow: 225px; position: absolute; left: 0; right: 0; top: 368px; display: flex; justify-content: center; align-items: flex-start; }
+  #cf.four { --arrow: 145px; }
+  .cf-node { --c: var(--concept-data); position: relative; width: var(--d); display: flex; flex-direction: column; align-items: center; }
+  .cf-disc { position: relative; width: var(--d); height: var(--d); }
+  .cf-disc svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cf-fill { fill: var(--c); }
+  .cf-ring { fill: none; stroke: var(--color-line); stroke-width: var(--line-w); }
+  .cf-word { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: var(--color-on-pill); font-size: var(--text-lead); font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+  .cf-note { margin-top: 40px; font-family: var(--font-hand); font-size: var(--text-hand); color: var(--color-ink); white-space: nowrap; line-height: 1; }
+  .cf-arrow { width: var(--arrow); height: var(--d); display: flex; align-items: center; justify-content: center; }
+  .cf-arrow svg { width: calc(var(--arrow) - 30px); height: 40px; overflow: visible; }
+  .cf-arrow path { fill: none; stroke: var(--color-line); stroke-width: var(--line-w); stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body data-preview>
+  <div id="cf">
+    <div class="cf-node" style="--c: var(--concept-data)">
+      <div class="cf-disc">
+        <svg viewBox="0 0 255 255"><circle class="cf-fill" cx="127.5" cy="127.5" r="125"/><circle class="cf-ring" cx="127.5" cy="127.5" r="125" pathLength="1"/></svg>
+        <div class="cf-word">원자량</div>
+      </div>
+      <p class="cf-note">1869년</p>
+    </div>
+    <div class="cf-arrow"><svg viewBox="0 0 195 40" preserveAspectRatio="none"><path class="cf-shaft" d="M2 21 Q 98 18 186 20" pathLength="1"/><path class="cf-head" d="M168 6 L188 20 L168 34" pathLength="1"/></svg></div>
+    <div class="cf-node" style="--c: var(--concept-info)">
+      <div class="cf-disc">
+        <svg viewBox="0 0 255 255"><circle class="cf-fill" cx="127.5" cy="127.5" r="125"/><circle class="cf-ring" cx="127.5" cy="127.5" r="125" pathLength="1"/></svg>
+        <div class="cf-word">원자 번호</div>
+      </div>
+      <p class="cf-note">1913년</p>
+    </div>
+    <div class="cf-arrow"><svg viewBox="0 0 195 40" preserveAspectRatio="none"><path class="cf-shaft" d="M2 21 Q 98 18 186 20" pathLength="1"/><path class="cf-head" d="M168 6 L188 20 L168 34" pathLength="1"/></svg></div>
+    <div class="cf-node" style="--c: var(--concept-ai)">
+      <div class="cf-disc">
+        <svg viewBox="0 0 255 255"><circle class="cf-fill" cx="127.5" cy="127.5" r="125"/><circle class="cf-ring" cx="127.5" cy="127.5" r="125" pathLength="1"/></svg>
+        <div class="cf-word">주기율표</div>
+      </div>
+      <p class="cf-note">같은 세로줄</p>
+    </div>
+  </div>
+</body>
+</html>
